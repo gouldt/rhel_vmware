@@ -1,0 +1,215 @@
+---
+- name: Set DNS - location west_ca_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_west_ca_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "ca"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc" 
+    # - (location is defined and location == "west_ca_corp")
+
+- name: Set DNS - location west_ca_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_west_ca_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "ca"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"
+    # - (location is defined and location == "west_ca_dco")
+
+- name: Set DNS - location west_hi_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_west_hi_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "hi"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc" 
+    # - (location is defined and location == "west_hi_corp")
+
+- name: Set DNS - location west_hi_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_west_hi_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "hi"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"  
+    # - (location is defined and location == "west_hi_dco")
+
+- name: Set DNS - location west_sv_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_west_sv_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "sv"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc"   
+    # - (location is defined and location == "west_sv_corp")
+
+- name: Set DNS - location west_sv_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_west_sv_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+#    dns_search: "{{ dns_search_west_sv_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "sv"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"
+    # - (location is defined and location == "west_sv_dco")
+
+- name: Set DNS - location southwest_tx_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_southwest_tx_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "tx"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc"  
+    # - (location is defined and location == "southwest_tx_corp")
+
+- name: Set DNS - location southwest_tx_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_southwest_tx_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "tx"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"
+    # - (location is defined and location == "southwest_tx_dco")
+
+- name: Set DNS - location southwest_ph_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_southwest_ph_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "ph"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc" 
+    # - (location is defined and location == "southwest_ph_corp")
+
+- name: Set DNS - location southwest_ph_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_southwest_ph_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "ph"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"
+
+- name: Set DNS - location midwest_ch_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_midwest_ch_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "ch"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc" 
+    # - (location is defined and location == "midwest_ch_corp")
+
+- name: Set DNS - location midwest_ch_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_midwest_ch_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "ch"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"
+
+- name: Set DNS - location southeast_va_corp
+  ansible.builtin.set_fact:
+    dns: "{{ dns_southeast_va_corp }}"
+    dns_search: "{{ dns_search_global_corp }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "va"
+    - rhel_hostname_net is defined and rhel_hostname_net == "corp" or 
+      rhel_hostname_net is defined and rhel_hostname_net == "rdc" 
+    # - (location is defined and location == "southeast_va_corp")
+
+- name: Set DNS - location southeast_va_dco
+  ansible.builtin.set_fact:
+    dns: "{{ dns_southeast_va_dco }}"
+    dns_search: "{{ dns_search_global_dco }}"
+  when: 
+    - rhel_hostname_dc is defined and rhel_hostname_dc == "va"
+    - rhel_hostname_net is defined and rhel_hostname_net == "cin"  
+    # - (location is defined and location == "southeast_va_dco")
+
+
+- name: Set host current default gateway fact
+  ansible.builtin.set_fact: 
+    gateway_fact: "{{ ansible_default_ipv4.gateway }}" 
+
+- name: Show host default gateway
+  ansible.builtin.debug:
+    msg: "{{ gateway_fact }}"
+
+- name: Set host current cidr prefix fact
+  ansible.builtin.set_fact: 
+    cidr_fact: "{{ ansible_default_ipv4.prefix }}" 
+
+- name: Show host current cidr fact
+  ansible.builtin.debug:
+    msg: "{{ cidr_fact }}"
+
+- name: Set host current ip address fact
+  ansible.builtin.set_fact: 
+    ip_fact: "{{ ansible_default_ipv4.address | default(ansible_all_ipv4_addresses[0]) }}" 
+
+- name: Show host current ip address fact
+  ansible.builtin.debug:
+    msg: "{{ ip_fact }}"
+
+- name: Set host current network interface name
+  ansible.builtin.set_fact: 
+    network_interface_fact: "{{ ansible_default_ipv4.interface }}" 
+
+- name: Show host current network interface name
+  ansible.builtin.debug:
+    msg: "{{ network_interface_fact }}"
+
+- name: Set host current network interface alias
+  ansible.builtin.set_fact: 
+    network_interface_alias_fact: "{{ ansible_default_ipv4.alias }}" 
+
+- name: Show host current network interface alias
+  ansible.builtin.debug:
+    msg: "{{ network_interface_alias_fact }}"
+
+
+# conn_name below refers to Device in nmtui (not Profile name).
+- name: Update only dns and dns search
+  community.general.nmcli:
+    conn_name: "{{ network_interface_alias_fact }}" 
+    type: ethernet
+    dns4: "{{ dns }}"
+    dns4_search: "{{ dns_search }}"
+    dns4_options: "{{ dns_options_global }}"
+    state: present
+  notify: 
+    - restart networkmanager
+
+# name below refers to Device in nmtui (not Profile name).
+# - name: DNS Config
+#   ansible.builtin.include_role:
+#     name: redhat.rhel_system_roles.network
+#   vars:
+#     network_provider: nm
+#     network_allow_restart: true
+#     network_connections:
+#       - name: "{{ network_interface_alias_fact }}"
+# #      - name: ens192  #nmcli interface when using VMWare
+#         type: ethernet
+#         state: up
+#         ip:
+#           address:
+#             - "{{ ip_fact }}/{{ cidr_fact }}"
+#           gateway4: "{{ gateway_fact }}"
+#           dns: "{{ dns }}"
+#           dns_search: "{{ dns_search }}"
+#           dns_options: "{{ dns_options_global }}"
+#           dhcp4: false
+#           auto6: false    
+
+- name: Refresh facts
+  ansible.builtin.setup:
+
+- name: Show host ip dns info post config
+  ansible.builtin.debug:
+    msg: "{{ ansible_default_ipv4 }}" 

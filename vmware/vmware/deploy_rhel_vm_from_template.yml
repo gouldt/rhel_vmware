@@ -1,0 +1,14 @@
+---
+- name: Deploy vm from template VMWare vCenter
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  roles:
+    - deploy_rhel_vm_from_template
+
+  tasks:
+    - name: set_stats rhel vm
+      ansible.builtin.set_stats:
+        data:
+          bootstrap_ip: "{{ rhel_bootstrap_ip }}"

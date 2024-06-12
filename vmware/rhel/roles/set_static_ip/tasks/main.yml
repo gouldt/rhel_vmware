@@ -1,0 +1,55 @@
+---
+# need to run network manager to change bootstrap ip set in ks.cfg
+
+- name: Take server_ip_address and change last octet to .1 to create fact for server_ip_gateway address 
+  ansible.builtin.set_fact: 
+    server_ip_gateway: "{{ server_ip_address.split('.')[0] }}.{{ server_ip_address.split('.')[1] }}.{{ server_ip_address.split('.')[2] }}.1"
+  when: server_ip_cidr == "24"
+
+- name: Set fact for server_ip_gateway address on ca corp 23 cidr
+  ansible.builtin.set_fact: 
+    server_ip_gateway: "10.1.0.1"
+  when: 
+    - server_ip_cidr == "23"
+    - bootstrap_ip == '10.1.0.107'
+
+
+- name: Show server_ip_gateway fact
+  ansible.builtin.debug:
+    msg: "{{ server_ip_gateway }}"
+
+- name: Set new static ip address 
+  community.general.nmcli:
+    conn_name: "{{ network_connections[0].name }}"
+    type: "{{ network_connections[0].type }}"
+    ip4: "{{ server_ip_address }}/{{ server_ip_cidr }}"
+    gw4: "{{ server_ip_gateway }}"
+    state: present
+
+- name: Restart NetworkManager
+  ansible.builtin.service:
+    name: NetworkManager
+    state: restarted
+
+- name: set_fact for the servers new ip
+  ansible.builtin.set_fact:
+    ansible_host: "{{ server_ip_address }}"
+
+- name: Reboot host and wait for it to restart
+  ansible.builtin.reboot:
+    msg: "Reboot initiated by Ansible"
+    connect_timeout: 5
+    reboot_timeout: 600
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: whoami
+
+- name: Get updated network facts
+  ansible.builtin.setup:
+    gather_subset:
+      - '!all'
+      - network
+
+- name: Show current ip address of remote server
+  ansible.builtin.debug:
+    msg: "{{ ansible_facts[network_connections[0].name].ipv4.address }}"

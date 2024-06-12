@@ -1,0 +1,79 @@
+---
+# DNS settings - all sites use global_corp or global_dco for dns_search
+dns_search_global_corp:
+  - sac.ragingwire.net
+  - smf.ragingwire.net
+  - ragingwire.com
+  - ragingwire.net
+  - dco.int
+
+dns_search_global_dco:
+  - dco.int
+  - sac.ragingwire.net
+  - smf.ragingwire.net
+  - ragingwire.com
+  - ragingwire.net
+
+dns_options_global:
+  - rotate
+  - timeout:1
+
+dns_west_ca_corp:
+  - 10.1.0.11
+  - 10.75.10.38
+
+dns_west_ca_dco:
+  - 10.48.150.41
+  - 10.48.150.42
+
+dns_west_hi_corp:
+  - 10.75.10.38
+  - 10.1.0.11
+
+dns_west_hi_dco:
+  - 10.75.150.21
+  - 10.75.150.22
+
+dns_west_sv_corp:
+  - 10.95.10.38
+  - 10.1.0.11
+
+dns_west_sv_dco:
+  - 10.48.150.41
+  - 10.48.150.42
+
+# dns_search_west_sv_dco:
+#   - "{{ dns_search_global_dco }}"
+#   - "{{ dns_search_global_corp }}"
+
+dns_southwest_tx_corp:
+  - 10.70.10.40
+  - 10.56.10.38
+
+dns_southwest_tx_dco:
+  - 10.70.150.21
+  - 10.70.150.22
+
+dns_southwest_ph_corp:
+  - 10.100.10.38
+  - 10.70.10.40
+
+dns_southwest_ph_dco:
+  - 10.48.150.41
+  - 10.48.150.42
+
+dns_midwest_ch_corp:
+  - 10.85.10.38
+  - 10.75.10.38
+
+dns_midwest_ch_dco:
+  - 10.48.150.41
+  - 10.48.150.42
+
+dns_southeast_va_corp:
+  - 10.56.10.38
+  - 10.70.10.40
+
+dns_southeast_va_dco:
+  - 10.48.150.41
+  - 10.48.150.42

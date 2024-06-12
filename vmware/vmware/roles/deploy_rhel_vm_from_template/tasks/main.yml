@@ -1,0 +1,109 @@
+---
+- name: Set vmware facts
+  ansible.builtin.set_fact:
+    guest_id: 'rhel9_64Guest'
+    template_name: 'rhel9_aap_32gb_template'
+    vcenter_username: '{{ lookup("env", "VMWARE_USER") }}'
+    vcenter_password: '{{ lookup("env", "VMWARE_PASSWORD") }}'  
+    vcenter_folder: "/Discovered virtual machine/"
+    boot_firmware: 'efi' # efi or bios, depending on what was set in the golden image prep
+    secure_boot: 'true' # set to true if golden image was set as efi secure boot
+    network_adapter: 'vmxnet3'
+    dns_name_full: "{{ vm_name }}"
+
+- name: Set vm facts
+  ansible.builtin.set_fact:
+    dns_name_short: "{{ dns_name_full.split('.')[0] }}"
+
+- name: Show dns_name_short
+  ansible.builtin.debug: 
+    msg: "{{ dns_name_short }}"
+
+- name: Set ch1-rdc-vc-01 vCenter and bootstrap ip facts
+  ansible.builtin.set_fact:
+    vcenter_datacenter: 'CH Corp'
+    vcenter_datastore: 'CH1-Corp-DS1'
+    vcenter_hostname: "{{ vcenter_name }}"
+    vsphere_compute_cluster: 'CH1'
+    vsphere_network_name: 'VLAN 510'
+    rhel_bootstrap_ip: '10.85.10.43'
+    server_ip_cidr: '24'
+  when: 
+    - vcenter_name == "ch1-rdc-vc-01"
+
+
+- name: Show template used and guest_id info
+  ansible.builtin.debug:
+      msg: "IP address entered is: {{ server_ip_address }}. guest_id is: {{ guest_id }}."
+
+- name: Clone the template - cluster
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+    name: "{{ dns_name_short }}"
+    template: "{{ template_name | lower }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    folder: "{{ vcenter_folder }}"
+    state: present
+    cluster: "{{ vsphere_compute_cluster | default(omit,true) }}"
+    annotation: "{{ comments | default('Deployed by Ansible') }}"
+    datastore: "{{ vcenter_datastore | default(omit,true) }}"
+    hardware:
+      memory_mb: "{{ memory_gb_provided | int * 1024 }}"
+      num_cpus: "{{ num_cpus }}"
+      hotadd_cpu: true
+      hotadd_memory: true
+      boot_firmware: "{{ boot_firmware | default(omit) }}"
+      secure_boot: "{{ secure_boot | default(omit,false) }}"
+    guest_id: "{{ guest_id }}"
+
+- name: Ensure no cdroms attached
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+    name: "{{ dns_name_short }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    cluster: "{{ vsphere_compute_cluster | default(omit,true) }}"
+    datastore: "{{ vcenter_datastore | default(omit,true) }}"
+    cdrom: 
+      - controller_type: sata
+        controller_number: 0
+        unit_number: 0
+        type: none
+        state: absent
+      - controller_type: sata
+        controller_number: 0
+        unit_number: 1
+        type: none
+        state: absent
+      - controller_type: sata
+        controller_number: 1
+        unit_number: 0
+        type: none
+        state: absent
+      - controller_type: sata
+        controller_number: 1
+        unit_number: 1
+        type: none
+        state: absent
+
+- name: Ensure network card connected and power on vm
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    datastore: "{{ vcenter_datastore | default(omit,true) }}"
+    validate_certs: false
+    name: "{{ dns_name_short }}"
+    cluster: "{{ vsphere_compute_cluster | default(omit,true) }}"
+    state: poweredon
+    networks:
+      - name: "{{ vsphere_network_name }}"
+        device_type: "{{ network_adapter }}"
+        connected: true
+        start_connected: true

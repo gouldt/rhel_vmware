@@ -1,0 +1,17 @@
+---
+- name: Make host group for targeted vm dns name
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Make new_host group
+      ansible.builtin.add_host:
+        name: "{{ vm_name }}"
+        groups: new_host
+
+- name: Set DNS
+  hosts: new_host
+  gather_facts: false
+       
+  roles:
+    - role: dns

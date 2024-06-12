@@ -1,0 +1,4 @@
+---
+- name: Wait for system to become reachable
+  ansible.builtin.pause:
+    seconds: 45

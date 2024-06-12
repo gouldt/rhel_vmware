@@ -1,0 +1,26 @@
+---
+- name: Make host group when provisioning new VM
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    # Initial vm provisioning block
+    - name: Make new_host group using servers new ip
+      ansible.builtin.add_host:
+        name: "{{ server_ip_address }}"
+        groups: new_host
+      when: 
+        - server_ip_address is defined
+
+- name: Set RHEL Hostname
+  hosts: new_host
+  gather_facts: false
+
+  roles:
+    - role: get_hostname
+    - role: set_hostname
+
+  tasks:
+    - name: Get RHEL hostname again
+      ansible.builtin.include_role:
+        name: get_hostname
