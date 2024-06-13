@@ -21,8 +21,8 @@
 
 - name: Set ch1-rdc-vc-01 vCenter and bootstrap ip facts
   ansible.builtin.set_fact:
-    vcenter_datacenter: 'CH Corp'
-    vcenter_datastore: 'CH1-Corp-DS1'
+    vcenter_datacenter: 'San Antonio Lab'
+    vcenter_datastore: "{{ vsphere_datastore }}"
     vcenter_hostname: "{{ vsphere_server }}"
     vsphere_compute_cluster: "{{ vcenter_cluster_name }}"
     vsphere_network_name: "{{ vsphere_network_name }}"
