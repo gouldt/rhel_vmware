@@ -37,8 +37,8 @@
       msg: "IP address entered is: {{ server_ip_address }}. guest_id is: {{ guest_id }}."
 
 - name: Clone the template - cluster
-  #community.vmware.vmware_guest:
-  vmware.vmware_guest:
+  community.vmware.vmware_guest:
+  #vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
