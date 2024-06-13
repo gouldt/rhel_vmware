@@ -20,8 +20,8 @@
 
 - name: Set new static ip address 
   community.general.nmcli:
-    conn_name: "{{ ens33.name }}"
-    type: "{{ ens33.type }}"
+    conn_name: "{{ ens33 }}"
+    type: "{{ ethernet }}"
     ip4: "{{ server_ip_address }}/{{ server_ip_cidr }}"
     gw4: "{{ server_ip_gateway }}"
     state: present
