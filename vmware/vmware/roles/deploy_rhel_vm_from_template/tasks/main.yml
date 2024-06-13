@@ -26,7 +26,7 @@
     vcenter_hostname: "{{ vsphere_server }}"
     vsphere_compute_cluster: "{{ vcenter_cluster_name }}"
     vsphere_network_name: "{{ vsphere_network_name }}"
-    rhel_bootstrap_ip: "{{ server_ip_address }}"
+    rhel_bootstrap_ip: "10"
     server_ip_cidr: "{{ server_ip_cidr }}"
   ##when: 
   ##  - vcenter_name == "{{ vsphere_server }}"

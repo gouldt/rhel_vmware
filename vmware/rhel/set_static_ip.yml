@@ -7,7 +7,7 @@
     # Initial vm provisioning block
     - name: Make new_host group
       ansible.builtin.add_host:
-        name: "{{ bootstrap_ip }}"
+        name: "10.14.1.24"
         groups: new_host
       when: 
         - server_ip_address is defined
