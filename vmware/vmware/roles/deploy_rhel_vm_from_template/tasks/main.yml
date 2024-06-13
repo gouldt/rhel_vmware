@@ -51,6 +51,7 @@
     template: "{{ template_name | lower }}"
     datacenter: "{{ vcenter_datacenter }}"
     folder: "{{ vcenter_folder }}"
+    resource_pool: "{{ vcenter_folder }}"
     state: present
     cluster: "{{ vsphere_compute_cluster | default(omit,true) }}"
     annotation: "{{ comments | default('Deployed by Ansible') }}"
