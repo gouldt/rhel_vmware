@@ -5,7 +5,7 @@
     template_name: '{{ vm_os_template }}'
     vcenter_username: '{{ lookup("env", "VMWARE_USER") }}'
     vcenter_password: '{{ lookup("env", "VMWARE_PASSWORD") }}'  
-    vcenter_folder: "/ {{ LAB04-Thomas.Gould }}/"
+    vcenter_folder: "/LAB04-Thomas.Gould/"
     boot_firmware: 'efi' # efi or bios, depending on what was set in the golden image prep
     secure_boot: 'true' # set to true if golden image was set as efi secure boot
     network_adapter: 'vmxnet3'
