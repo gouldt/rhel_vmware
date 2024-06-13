@@ -61,8 +61,8 @@
     guest_id: "{{ guest_id }}"
 
 - name: Ensure no cdroms attached
-  #community.vmware.vmware_guest:
-  vmware.vmware_guest:
+  community.vmware.vmware_guest:
+  # vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
@@ -94,8 +94,8 @@
         state: absent
 
 - name: Ensure network card connected and power on vm
-  #community.vmware.vmware_guest:
-  vmware.vmware_guest:
+  community.vmware.vmware_guest:
+  # vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
