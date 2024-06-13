@@ -28,8 +28,8 @@
     vsphere_network_name: "{{ vsphere_network_name }}"
     rhel_bootstrap_ip: "{{ server_ip_address }}"
     server_ip_cidr: "{{ server_ip_cidr }}"
-  when: 
-    - vcenter_name == "{{ vsphere_server }}"
+  ##when: 
+  ##  - vcenter_name == "{{ vsphere_server }}"
 
 
 - name: Show template used and guest_id info
