@@ -36,6 +36,10 @@
   ansible.builtin.debug:
       msg: "IP address entered is: {{ server_ip_address }}. guest_id is: {{ guest_id }}."
 
+- name: Print folder
+  ansible.builtin.debug:
+      msg: "Folder entered is: {{ vcenter_folder }}."
+
 - name: Clone the template - cluster
   community.vmware.vmware_guest:
   #vmware.vmware_guest:
