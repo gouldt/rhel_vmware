@@ -192,7 +192,7 @@
 #   vars:
 #     network_provider: nm
 #     network_allow_restart: true
-#     network_connections:
+#     :
 #       - name: "{{ network_interface_alias_fact }}"
 # #      - name: ens192  #nmcli interface when using VMWare
 #         type: ethernet
